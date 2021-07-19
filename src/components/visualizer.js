@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../styles/visualizer.css';
 
 export default class Visualizer extends Component{
     constructor(props){
