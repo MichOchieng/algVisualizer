@@ -26,8 +26,15 @@ export default class Visualizer extends Component{
     }
 
     render(){
+        const mappingArray = this.state.array;
         return(
-            <h1>Test</h1>
-        )
+            // Render array values to divs
+            mappingArray.map( (value,idx) => (
+                <div class="sortingBar" key={idx}>
+                    {value}
+                </div>
+                )
+            )
+        );
     }
 }
