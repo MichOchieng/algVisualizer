@@ -3,7 +3,7 @@ import {Container} from 'react-bootstrap';
 import Nav from './components/nav';
 import Visualizer from './components/visualizer';
 
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (
