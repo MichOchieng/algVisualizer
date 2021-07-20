@@ -31,8 +31,11 @@ export default class Visualizer extends Component{
         return(
             // Render array values to divs
             mappingArray.map( (value,idx) => (
-                <div class="sortingBar" key={idx}>
-                    {value}
+                <div 
+                    class="sortingBar" 
+                    key={idx}
+                    style={{height: `${value/11}vh`}}
+                >
                 </div>
                 )
             )
