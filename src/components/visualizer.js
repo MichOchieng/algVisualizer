@@ -27,6 +27,7 @@ export default class Visualizer extends Component{
     runMergeSort(){
         var arr = this.state.array;
         arr = mergeSort(arr);
+        this.state.array = arr; // 'Prevents' state array from being errased after sort
         this.setState({arr});
     }
 
@@ -47,10 +48,11 @@ export default class Visualizer extends Component{
         return(
             <div>
             {/* Render array values to divs */}
-            {mappingArray.map( (value,idx) => (
+            {mappingArray.map( (value,index) => (
                 <div 
                     class="sortingBar" 
-                    key={idx}
+                    id={`bar${index}`} // Used for changing DOM properties later on
+                    key={index}
                     style={{height: `${value/11}vh`}}
                 >
                 </div>
