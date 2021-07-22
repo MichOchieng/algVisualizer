@@ -1,6 +1,5 @@
 export default function router(){
    var alg = document.getElementById('algMenu').value;
-   
    switch (alg) {
        case '1':
            console.log("Merge sort selected");
