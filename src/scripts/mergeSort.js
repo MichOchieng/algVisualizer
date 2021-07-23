@@ -71,32 +71,32 @@ function merge(arr,tempArr,eventStack,currentPos,midpoint,n){
 
     var x,y = currentPos;
     var z   = (midpoint + 1);
-
+    //     k = x     y = i    j = z
     // Left and Right
-    while (x <= midpoint && z <= n ) {
+    while (y <= midpoint && z <= n ) {
         // Comparing values - Highlight
-        eventStack.push([x,z]);
+        eventStack.push([y,z]);
         // Comparing values - Revert Colour
-        eventStack.push([x,z]);
-        if(tempArr[x] <= tempArr[z]){
+        eventStack.push([y,z]);
+        if(tempArr[y] <= tempArr[z]){
             // Overwrite value with value at tempArr[x]
-            eventStack.push([y,tempArr[x]]);
-            arr[y++] = tempArr[x++];
+            eventStack.push([x,tempArr[y]]);
+            arr[x++] = tempArr[y++];
         }else{
             // Overwrite value with value at tempArr[z]
-            eventStack.push([y,tempArr[z]]);
-            arr[y++] = tempArr[z++];
+            eventStack.push([x,tempArr[z]]);
+            arr[x++] = tempArr[z++];
         }
     }
     // Left Side
-    while (x <= midpoint ) {
+    while (y <= midpoint ) {
         // Comparing values - Highlight
-        eventStack.push([x,x]);
+        eventStack.push([y,y]);
         // Comparing values - Revert Colour
-        eventStack.push([x,x]);
+        eventStack.push([y,y]);
         // Overwrite value
-        eventStack.push([y,tempArr[x]]);
-        arr[y++] = tempArr[x++];
+        eventStack.push([x,tempArr[y]]);
+        arr[x++] = tempArr[y++];
     }
     // Right Side
     while (z <= n) {
@@ -105,8 +105,8 @@ function merge(arr,tempArr,eventStack,currentPos,midpoint,n){
         // Comparing values - Revert Colour
         eventStack.push([z,z]);
         // Overwrite value
-        eventStack.push([y,tempArr[z]]);
-        arr[y++] = tempArr[z++];
+        eventStack.push([x,tempArr[z]]);
+        arr[x++] = tempArr[z++];
     }
 }
 
