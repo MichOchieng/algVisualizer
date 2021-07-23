@@ -11,12 +11,10 @@ export default class Visualizer extends Component{
         super(props);
         this.state = {
             array: [], // Will be the array used for sorting algorithms
-            arraySize: 100,
-            radioValue: 1,
-            setRadioValue: 1
+            arraySize: 100
         }
         this.generateArray = this.generateArray.bind(this);
-        this.runMergeSort = this.runMergeSort.bind(this);
+        this.runAnimation  = this.runAnimation.bind(this);
     }
 
     componentDidMount(){
@@ -24,11 +22,38 @@ export default class Visualizer extends Component{
         this.generateArray();
     }
 
-    runMergeSort(){
-        var arr = this.state.array;
-        arr = mergeSort(arr);
-        this.state.array = arr; // 'Prevents' state array from being errased after sort
-        this.setState({arr});
+    runAnimation(){
+        var events = mergeSort(this.state.array);
+        console.log(events);
+        for (let index = 0; index < events.length; index++) {
+            // Get bar divs
+            const bars = document.getElementsByClassName("sortingBar");
+            // Check if there will be a higlight
+            const highlight = ((index % 3) !== 2); // Only highlights inital two values of every group of three (third value overwrites)
+            if (highlight) {
+                // Get the bars that need to be highlighted
+                // Select the bars colour based on index/event in array
+                const [bar1,bar2] = events[index];
+                const bar1CSS = bars[bar1].style;
+                const bar2CSS = bars[bar2].style;
+                const colour = index % 3 === 0 ? 'green' : 'purple';
+                setTimeout(() => {
+                    // Allows user to actually see when the bar colours change
+                    bar1CSS.backgroundColor = colour;
+                    console.log("bar1 colour: " + colour);
+                    bar2CSS.backgroundColor = colour;
+                    console.log("bar2 colour: " + colour);
+                }, index * 10);
+            } else {
+                // This is for 'swapping' bar values to correct position in the sorted array
+                setTimeout(() => {
+                    const [bar1,barHeight] = events[index];
+                    const bar1CSS = bars[bar1].style;
+                    bar1CSS.height = `${barHeight}`;
+                }, index * 10);
+            }
+            
+        }
     }
 
     generateArray(){
@@ -62,7 +87,7 @@ export default class Visualizer extends Component{
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="bottom">
                 <Container>
                     <Button variant="info" onClick={() => {this.generateArray()}}><FaSync /></Button>
-                    <Button variant="success" onClick={() => {this.runMergeSort()}}><FaPlayCircle /></Button>
+                    <Button variant="success" onClick={() => {this.runAnimation()}}><FaPlayCircle /></Button>
                     <select class="algMenu" id ="algMenu">
                         {/* <option
                             value='0'
@@ -70,7 +95,7 @@ export default class Visualizer extends Component{
                         <option
                             value='1'
                         >Merge sort</option>
-                        <option 
+                        {/* <option 
                             value='2'
                         >Quick sort</option>
                         <option 
@@ -78,7 +103,7 @@ export default class Visualizer extends Component{
                         >Heap sort</option>
                         <option 
                             value='4'
-                        >Bubble sort</option>
+                        >Bubble sort</option> */}
                     </select>
                 </Container>
             </Navbar>
