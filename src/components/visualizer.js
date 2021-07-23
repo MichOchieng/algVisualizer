@@ -23,37 +23,34 @@ export default class Visualizer extends Component{
     }
 
     runAnimation(){
-        var events = mergeSort(this.state.array);
-        console.log(events);
+        const events = mergeSort(this.state.array);
         for (let index = 0; index < events.length; index++) {
             // Get bar divs
             const bars = document.getElementsByClassName("sortingBar");
             // Check if there will be a higlight
-            const highlight = ((index % 3) !== 2); // Only highlights inital two values of every group of three (third value overwrites)
+            const highlight = index % 3 !== 2; // Only highlights inital two values of every group of three (third value overwrites)
             if (highlight) {
                 // Get the bars that need to be highlighted
                 // Select the bars colour based on index/event in array
                 const [bar1,bar2] = events[index];
                 const bar1CSS = bars[bar1].style;
                 const bar2CSS = bars[bar2].style;
-                const colour = index % 3 === 0 ? 'green' : 'purple';
+                const colour = index % 3 === 0 ? 'green' : '#F74F3D';
                 setTimeout(() => {
                     // Allows user to actually see when the bar colours change
                     bar1CSS.backgroundColor = colour;
-                    console.log("bar1 colour: " + colour);
                     bar2CSS.backgroundColor = colour;
-                    console.log("bar2 colour: " + colour);
                 }, index * 10);
             } else {
                 // This is for 'swapping' bar values to correct position in the sorted array
                 setTimeout(() => {
                     const [bar1,barHeight] = events[index];
                     const bar1CSS = bars[bar1].style;
-                    bar1CSS.height = `${barHeight}`;
+                    bar1CSS.height = `${barHeight}px`;
                 }, index * 10);
             }
-            
         }
+
     }
 
     generateArray(){
@@ -69,7 +66,6 @@ export default class Visualizer extends Component{
 
     render(){
         const mappingArray = this.state.array;
-
         return(
             <div>
             {/* Render array values to divs */}
