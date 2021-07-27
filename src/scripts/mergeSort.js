@@ -106,4 +106,3 @@ export function mergeSort(arr) {
       arr[k++] = tempArr[j++];
     }
   }
- 
